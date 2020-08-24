@@ -1,6 +1,14 @@
 const helloButton = document.getElementById('hello-button');
 const petList = document.getElementById('pet-list');
 
+const meme =
+{
+    image: document.getElementById('meme-image'),
+    title: document.getElementById('meme-title'),
+    author: document.getElementById('meme-author')
+}
+
+
 const categories =   //Esto es un objeto
 {
     dogs: 
@@ -181,3 +189,15 @@ categories.mices.button.onclick = ()=>
         </li>`;//ES6 Emacscript 6
         });
 }
+const GetMemes = async ()=>
+{
+    const data = await fetch('https://meme-api.herokuapp.com/gimme');
+    const josonData = await data.json();
+    const {url, author, nsfw, postLink,  spoiler, subreddit, title} = josonData;//Se puedee desestructurar un jason
+    // console.log(data.json());
+    meme.title.innerHTML = `title: ${title}`;
+    meme.author.innerHTML = `author: ${author}`;
+    console.log(author);
+    meme.image.src = url;
+}
+GetMemes();
